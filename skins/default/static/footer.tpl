@@ -4,6 +4,6 @@
 <div class="back_shadow">
 	<footer>
 		<a href="#">Powered by Shopify</a>
-		©<?php echo ' '.@$created ?>
+		&copy;<?php echo ' '.@$created; ?>
 	</footer>
 </div>

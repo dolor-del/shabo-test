@@ -21,7 +21,7 @@
 		<form action="" method="get">
 			<span style="font-weight: bold; font-size: 16px;">Enter a number from 1 to 3 and click "ATTACK":</span><br><br><input class="auth_text" type="text" name="input_number"><br>
 			<span style="color: #ff0000"><?php echo @$_SESSION['error_input'];?></span><br><br>
-			<input class="auth_button" type="submit" value="ATTACK!" style="font-weight:bold">
+			<input class="auth_button" type="submit" name="attack" value="ATTACK!" style="font-weight:bold">
 		</form>
 
 		<form action="" method="get">

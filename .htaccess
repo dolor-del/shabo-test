@@ -1,2 +1,21 @@
 AddDefaultCharset UTF-8
 php_flag display_errors ON
+php_value mbstring.internal_encoding UTF-8
+php_flag magic_quotes_gpc off
+php_flag magic_quotes_runtime off
+php_flag register_globals off
+
+php_value memory_limit 128M
+php_value upload_max_filesize 50M
+php_value post_max_size 50M
+php_value max_input_time 3000
+
+RewriteEngine on
+
+RewriteCond %{REQUEST_URI} !^/forum
+RewriteCond %{REQUEST_URI} !^/ckeditor
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+RewriteRule ^(.*)$ index.php?route=$1 [L,QSA]

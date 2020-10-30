@@ -1,5 +1,5 @@
 <?php
-if (CREATED == date('Y')) {
-	$created = CREATED;
-} else $created = CREATED.' - '.date('Y');
+if (Core::$CREATED == date('Y')) {
+	$created = Core::$CREATED;
+} else $created = Core::$CREATED.' - '.date('Y');
 ?>

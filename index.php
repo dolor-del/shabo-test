@@ -7,24 +7,28 @@ session_start();
 // Конфиг сайта
 include_once './config.php';
 include_once './libs/default.php';
-include_once './variables.php';
 
-$link = mysqli_connect(DB_LOCAL, DB_LOGIN, DB_PASS, DB_NAME);
+$link = mysqli_connect(Core::$DB_LOCAL, Core::$DB_LOGIN, Core::$DB_PASS, Core::$DB_NAME);
 mysqli_set_charset($link, 'utf8');
 
-/*$res = mysqli_query($link, "SELECT *
-FROM `users`
-ORDER BY `id`") or exit(mysqli_error($link));
-
-if (mysqli_num_rows($res)) {
-	echo '<div>Всего '.mysqli_num_rows($res).' записей</div><br>';
-	while ($row = mysqli_fetch_assoc($res)) {
-		echo '<div>Пользователь: '.htmlspecialchars($row['login']).'</div>';
-	}
-} else {
-	echo 'Нет записей';
-}*/
+include_once './variables.php';
 
 // Роутер
-include './modules/'.$_GET['module'].'/'.$_GET['page'].'.php';
-include './skins/'.SKIN.'/index.tpl';
+ob_start();
+	include './'.Core::$CONT.'/allpages.php';
+
+	if (!file_exists('./'.Core::$CONT.'/'.$_GET['module'].'/'.$_GET['page'].'.php') || !file_exists('./skins/'.Core::$SKIN.'/'.$_GET['module'].'/'.$_GET['page'].'.tpl')) {
+		header("Location: /404");
+		exit();
+	}
+
+	include './'.Core::$CONT.'/static/header.php';
+	include './'.Core::$CONT.'/static/footer.php';
+	include './'.Core::$CONT.'/'.$_GET['module'].'/'.$_GET['page'].'.php';
+	include './skins/'.Core::$SKIN.'/static/header.tpl';
+	include './skins/'.Core::$SKIN.'/'.$_GET['module'].'/'.$_GET['page'].'.tpl';
+	include './skins/'.Core::$SKIN.'/static/footer.tpl';
+	$content = ob_get_contents();
+ob_end_clean();
+
+include './skins/'.Core::$SKIN.'/index.tpl';

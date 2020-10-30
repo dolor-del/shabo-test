@@ -2,8 +2,8 @@
 $error_input_repeat = 'Incorrect input! Try again...';
 
 if(!isset($_SESSION['hp_client']) || isset($_GET['start_over'])) {
-	$_SESSION['hp_client'] = START_HP;
-	$_SESSION['hp_bot'] = START_HP;
+	$_SESSION['hp_client'] = Core::$START_HP;
+	$_SESSION['hp_bot'] = Core::$START_HP;
 }
 
 if (isset($_SESSION['lose'])) {
@@ -19,22 +19,22 @@ if(isset($_GET['input_number'])) {
 	$input = (int)$_GET['input_number'];
 }
 
-if(isset($input) && ($input >= START_INPUT && $input <= END_INPUT)) {
+if(isset($input) && ($input >= Core::$START_INPUT && $input <= Core::$END_INPUT)) {
 
-	if($input == rand(START_RANDOM_COUNT, END_RANDOM_COUNT)) {
-		$_SESSION['damage_client'] = rand(START_RANDOM_DAMAGE, END_RANDOM_DAMAGE);
+	if($input == rand(Core::$START_RANDOM_COUNT, Core::$END_RANDOM_COUNT)) {
+		$_SESSION['damage_client'] = rand(Core::$START_RANDOM_DAMAGE, Core::$END_RANDOM_DAMAGE);
 		$_SESSION['hp_client'] -= $_SESSION['damage_client'];
-		if ($_SESSION['hp_client'] <= GAME_OVER_HP) {
-			$_SESSION['hp_client'] = START_HP;
-			$_SESSION['hp_bot'] = START_HP;
+		if ($_SESSION['hp_client'] <= Core::$GAME_OVER_HP) {
+			$_SESSION['hp_client'] = Core::$START_HP;
+			$_SESSION['hp_bot'] = Core::$START_HP;
 			$_SESSION['lose'] = 'You lose!';
 		}
 	} else {
-		$_SESSION['damage_bot'] = rand(START_RANDOM_DAMAGE, END_RANDOM_DAMAGE);
+		$_SESSION['damage_bot'] = rand(Core::$START_RANDOM_DAMAGE, Core::$END_RANDOM_DAMAGE);
 		$_SESSION['hp_bot'] -= $_SESSION['damage_bot'];
-		if ($_SESSION['hp_bot'] <= GAME_OVER_HP) {
-			$_SESSION['hp_client'] = START_HP;
-			$_SESSION['hp_bot'] = START_HP;
+		if ($_SESSION['hp_bot'] <= Core::$GAME_OVER_HP) {
+			$_SESSION['hp_client'] = Core::$START_HP;
+			$_SESSION['hp_bot'] = Core::$START_HP;
 			$_SESSION['lose'] = 'You win!';
 		}
 	}
@@ -47,18 +47,18 @@ if(isset($input) && ($input >= START_INPUT && $input <= END_INPUT)) {
 
 if(isset($_SESSION['lose'])) {
 	if ($_SESSION['lose'] == 'You lose!') {
-		$img_client = './img/client_lose.jpg';
+		$img_client = '/img/client_lose.jpg';
 	} elseif ($_SESSION['lose'] == 'You win!') {
-		$img_client = './img/client_win.jpg';
+		$img_client = '/img/client_win.jpg';
 	}
-} else $img_client = './img/client.jpg';
+} else $img_client = '/img/client.jpg';
 
 if(isset($_SESSION['lose'])) {
 	if ($_SESSION['lose'] == 'You lose!') {
-		$img_bot = './img/bot_win.jpg';
+		$img_bot = '/img/bot_win.jpg';
 	} elseif ($_SESSION['lose'] == 'You win!') {
-		$img_bot = './img/bot_lose.jpg';
+		$img_bot = '/img/bot_lose.jpg';
 	}
-} else $img_bot = './img/bot.jpg';
+} else $img_bot = '/img/bot.jpg';
 
 ?>
